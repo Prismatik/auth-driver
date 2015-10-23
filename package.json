@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "A drive to use the auth service",
   "main": "index.js",
-  "scripts": {
-    "test": "npm test"
-  },
   "author": "Larlyn Tanasap",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.65.0"
+  }
 }
