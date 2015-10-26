@@ -3,7 +3,7 @@ var AUTH_URL = process.env.AUTH_URL || 'http://auth-ordermentum-sandpit.prismati
 
 exports.validate = function(token) {
   return new Promise(function(resolve, reject){
-    request.get('/entities?token=' + token, function(err, res, body){
+    request.get(AUTH_URL + '/entities?token=' + token, function(err, res, body){
       if (err) reject(err);
       return resolve(body);
     });
