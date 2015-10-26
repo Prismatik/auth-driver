@@ -50,6 +50,10 @@ Driver.prototype.getAll = function() {
   return request.get(this.AUTH_URL + '/entities');
 };
 
+Driver.prototype.get = function(id) {
+  return request.get(this.AUTH_URL + '/entities/' + id);
+};
+
 Driver.prototype.update = function(id, data) {
   return request.put(this.AUTH_URL + '/entities/' + id, data);
 };
