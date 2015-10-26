@@ -17,23 +17,23 @@ Driver.prototype.validate = function(token) {
 };
 
 Driver.prototype.signIn = function(email, password) {
-  return request.post(_this.AUTH_URL + '/login', { email: email, password: password });
+  return request.post(this.AUTH_URL + '/login', { email: email, password: password });
 };
 
 Driver.prototype.create = function(data) {
-  return request.post(_this.AUTH_URL + '/entities', data);
+  return request.post(this.AUTH_URL + '/entities', data);
 };
 
 Driver.prototype.search = function(type, uuid) {
-  return request.get(_this.AUTH_URL + '/entities?perm.type=' + type + '&perm.entity=' + uuid);
+  return request.get(this.AUTH_URL + '/entities?perm.type=' + type + '&perm.entity=' + uuid);
 };
 
 Driver.prototype.getAll = function() {
-  return request.get(_this.AUTH_URL + '/entities');
+  return request.get(this.AUTH_URL + '/entities');
 };
 
 Driver.prototype.update = function(id, data) {
-  return request.put(_this.AUTH_URL + '/entities/' + id, data);
+  return request.put(this.AUTH_URL + '/entities/' + id, data);
 };
 
 module.exports = Driver;
