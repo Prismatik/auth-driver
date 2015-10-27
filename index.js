@@ -17,11 +17,21 @@ Driver.prototype.validate = function(token) {
 };
 
 Driver.prototype.signIn = function(email, password) {
-  return request.post(this.AUTH_URL + '/login', { email: email, password: password });
+  return request({
+          uri: this.AUTH_URL + '/login',
+          body:{ email: email, password: password },
+          method: 'POST',
+          json: true
+        });
 };
 
 Driver.prototype.create = function(data) {
-  return request.post(this.AUTH_URL + '/entities', data);
+  return request.post({
+          uri: this.AUTH_URL + '/entities',
+          body: data,
+          method: 'POST',
+          json: true
+        });
 };
 
 Driver.prototype.findByPerm = function(type, uuid) {
@@ -55,7 +65,12 @@ Driver.prototype.get = function(id) {
 };
 
 Driver.prototype.update = function(id, data) {
-  return request.put(this.AUTH_URL + '/entities/' + id, data);
+  return request({
+          uri: this.AUTH_URL + '/entities/' + id,
+          body: data,
+          method: 'PUT'
+          json: true
+        });
 };
 
 module.exports = Driver;
