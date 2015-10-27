@@ -1,6 +1,6 @@
 {
   "name": "auth-driver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A drive to use the auth service",
   "main": "index.js",
   "author": "Larlyn Tanasap",
