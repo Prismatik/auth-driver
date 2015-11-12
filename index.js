@@ -1,4 +1,4 @@
-var request = require('request-promise');
+var axios = require('axios');
 
 /*
 * Usage:
@@ -7,35 +7,48 @@ var request = require('request-promise');
 * var driver = new Driver('https://username:key@localhost:3000');
 */
 
+var returnBody = res => {
+  return res.data;
+};
 
 Driver = function(AUTH_URL) {
+  var creds = AUTH_URL.split('@')[0].split('//')[1];
+  this.headers = {
+    Authorization: 'Basic '+new Buffer(creds).toString('base64')
+  };
   this.AUTH_URL = AUTH_URL;
 };
 
 Driver.prototype.validate = function(token) {
-  return request.get(this.AUTH_URL + '/entities?token=' + token);
+  return axios({
+    url: this.AUTH_URL + '/entities?token=' + token,
+    headers: this.headers
+  }).then(returnBody);
 };
 
 Driver.prototype.signIn = function(email, password) {
-  return request({
-          uri: this.AUTH_URL + '/login',
-          body:{ email: email, password: password },
+  return axios({
+          url: this.AUTH_URL + '/login',
+          data:{ email: email, password: password },
           method: 'POST',
-          json: true
-        });
+          headers: this.headers
+        }).then(returnBody);
 };
 
 Driver.prototype.create = function(data) {
-  return request.post({
-          uri: this.AUTH_URL + '/entities',
-          body: data,
+  return axios({
+          url: this.AUTH_URL + '/entities',
+          data: data,
           method: 'POST',
-          json: true
-        });
+          headers: this.headers
+        }).then(returnBody);
 };
 
 Driver.prototype.findByPerm = function(type, uuid) {
-  return request.get(this.AUTH_URL + '/entities?perm.type=' + type + '&perm.entity=' + uuid);
+  return axios({
+    url: this.AUTH_URL + '/entities?perm.type=' + type + '&perm.entity=' + uuid,
+    headers: this.headers
+  }).then(returnBody);
 };
 
 Driver.prototype.search = function(params) {
@@ -53,24 +66,33 @@ Driver.prototype.search = function(params) {
   var qs = params.map(function(param) {
     return [param.key, param.value].join('=');
   }).join('&');
-  return request.get(_this.AUTH_URL + '/entities?'+ qs);
+  console.log('qs is', qs);
+  return axios({
+    url: this.AUTH_URL + '/entities?'+ qs,
+    headers: this.headers
+  }).then(returnBody);
 };
 
 Driver.prototype.getAll = function() {
-  return request.get(this.AUTH_URL + '/entities');
+  return axios({
+    url: this.AUTH_URL + '/entities',
+    headers: this.headers
+  }).then(returnBody);
 };
 
 Driver.prototype.get = function(id) {
-  return request.get(this.AUTH_URL + '/entities/' + id);
+  return axios({
+    url: this.AUTH_URL + '/entities/' + id,
+    headers: this.headers
+  }).then(returnBody);
 };
 
 Driver.prototype.update = function(id, data) {
-  return request({
-          uri: this.AUTH_URL + '/entities/' + id,
-          body: data,
-          method: 'POST',
-          json: true
-        });
+  return axios({
+    url: this.AUTH_URL + '/entities/' + id,
+    data: data,
+    method: 'POST',
+  }).then(returnBody);
 };
 
 module.exports = Driver;
