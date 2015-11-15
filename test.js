@@ -24,7 +24,6 @@ test('create should succeed', t => {
 test('signIn should succeed', t => {
   return driver.signIn(spec.email, spec.password)
   .then(res => {
-    console.log(res);
     token = res;
   });
 });
@@ -55,7 +54,6 @@ test('findByPerm should succeed', t => {
 test('search should succeed', t => {
   return driver.search([{key: 'email', value: spec.email}])
   .then(res => {
-    console.log('res is', res);
     t.equal(res.length, 1);
     t.equal(res[0].email, spec.email);
   });
