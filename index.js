@@ -89,6 +89,7 @@ Driver.prototype.get = function(id) {
 Driver.prototype.update = function(id, data) {
   return axios({
     url: this.AUTH_URL + '/entities/' + id,
+    headers: this.headers,
     data: data,
     method: 'POST',
   }).then(returnBody);
