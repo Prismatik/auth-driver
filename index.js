@@ -66,7 +66,6 @@ Driver.prototype.search = function(params) {
   var qs = params.map(function(param) {
     return [param.key, param.value].join('=');
   }).join('&');
-  console.log('qs is', qs);
   return axios({
     url: this.AUTH_URL + '/entities?'+ qs,
     headers: this.headers
