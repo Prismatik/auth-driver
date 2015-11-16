@@ -11,7 +11,7 @@ var returnBody = res => {
   return res.data;
 };
 
-Driver = function(AUTH_URL) {
+var Driver = function(AUTH_URL) {
   var creds = AUTH_URL.split('@')[0].split('//')[1];
   this.headers = {
     Authorization: 'Basic '+new Buffer(creds).toString('base64')
