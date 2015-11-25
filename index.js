@@ -68,7 +68,7 @@ Driver.prototype.update = function(id, data) {
   return request({
           uri: this.AUTH_URL + '/entities/' + id,
           body: data,
-          method: 'PUT',
+          method: 'POST',
           json: true
         });
 };
