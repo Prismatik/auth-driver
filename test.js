@@ -69,6 +69,6 @@ test('get should succeed', t => {
 });
 
 test('update should succeed', t => {
-  spec.permissions = [{type: 'baz', entity: 'quux'}];
-  return driver.update(entity.id, spec)
+  entity.permissions = [{type: 'baz', entity: 'quux'}];
+  return driver.update(entity.id, entity)
 });
