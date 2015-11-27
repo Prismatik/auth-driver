@@ -36,6 +36,9 @@ Driver.prototype.signIn = function(email, password) {
 };
 
 Driver.prototype.create = function(data) {
+  data = JSON.parse(JSON.stringify(data));
+  if (!data.emails && data.email) data.emails = [data.email];
+  delete data.email;
   return axios({
           url: this.AUTH_URL + '/entities',
           data: data,
