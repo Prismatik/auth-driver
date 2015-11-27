@@ -5,11 +5,15 @@ var driver = new Driver(process.env.AUTH_URL);
 var test = require('blue-tape');
 var bandname = require('bandname');
 
+var rando = () => bandname().replace(/ /g, '_');
+
 var spec = {
-  email: (bandname()+'@example.com').replace(/ /g, '_'),
-  password: bandname().replace(/ /g, '_'),
+  email: (rando()+'@example.com'),
+  password: rando(),
   permissions: [{type: 'foo', entity: 'bar'}]
 };
+
+spec.emails = [spec.email];
 
 var entity;
 var token;
@@ -41,13 +45,11 @@ test('validate should fail an invalid token', t => {
 });
 
 test('findByPerm should succeed', t => {
-  return driver.findByPerm('foo', 'bar')
+  return driver.findByPerm(spec.permissions[0].type, spec.permissions[0].entity)
   .then(res => {
-    var passed = false;
     res.forEach(ent => {
-      if (ent.email === spec.email) passed = true;
+      t.deepEqual(ent.emails, spec.emails)
     });
-    t.ok(passed);
   });
 });
 
@@ -55,14 +57,14 @@ test('search should succeed', t => {
   return driver.search([{key: 'email', value: spec.email}])
   .then(res => {
     t.equal(res.length, 1);
-    t.equal(res[0].email, spec.email);
+    t.deepEqual(res[0].emails, spec.emails);
   });
 });
 
 test('get should succeed', t => {
   return driver.get(entity.id)
   .then(res => {
-    t.equal(res.email, spec.email);
+    t.deepEqual(res.emails, spec.emails);
   });
 });
 
