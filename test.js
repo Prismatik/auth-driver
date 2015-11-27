@@ -28,7 +28,7 @@ test('create should succeed', t => {
 test('signIn should succeed', t => {
   return driver.signIn(spec.email, spec.password)
   .then(res => {
-    token = res;
+    token = res.token;
   });
 });
 
