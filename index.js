@@ -23,7 +23,8 @@ Driver.prototype.validate = function(token) {
   return axios({
     url: this.AUTH_URL + '/entities?token=' + token,
     headers: this.headers
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.signIn = function(email, password) {
@@ -32,7 +33,8 @@ Driver.prototype.signIn = function(email, password) {
           data:{ email: email, password: password },
           method: 'POST',
           headers: this.headers
-        }).then(returnBody);
+        })
+        .then(returnBody);
 };
 
 Driver.prototype.create = function(data) {
@@ -44,14 +46,16 @@ Driver.prototype.create = function(data) {
           data: data,
           method: 'POST',
           headers: this.headers
-        }).then(returnBody);
+        })
+        .then(returnBody);
 };
 
 Driver.prototype.findByPerm = function(type, uuid) {
   return axios({
     url: this.AUTH_URL + '/entities?perm.type=' + type + '&perm.entity=' + uuid,
     headers: this.headers
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.search = function(params) {
@@ -72,21 +76,24 @@ Driver.prototype.search = function(params) {
   return axios({
     url: this.AUTH_URL + '/entities?'+ qs,
     headers: this.headers
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.getAll = function() {
   return axios({
     url: this.AUTH_URL + '/entities',
     headers: this.headers
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.get = function(id) {
   return axios({
     url: this.AUTH_URL + '/entities/' + id,
     headers: this.headers
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.update = function(id, data) {
@@ -95,7 +102,8 @@ Driver.prototype.update = function(id, data) {
     headers: this.headers,
     data: data,
     method: 'POST',
-  }).then(returnBody);
+  })
+  .then(returnBody);
 };
 
 module.exports = Driver;
