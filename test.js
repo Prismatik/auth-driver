@@ -10,7 +10,7 @@ var rando = () => bandname().replace(/ /g, '_');
 var spec = {
   email: (rando()+'@example.com'),
   password: rando(),
-  permissions: [{type: 'foo', entity: 'bar'}]
+  permissions: [{type: rando(), entity: rando()}]
 };
 
 spec.emails = [spec.email];
