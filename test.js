@@ -1,4 +1,3 @@
-//FIXME these tests are full of shared state. They work, but they're liable to do unexpected things if not watched carefully as they change
 require('required_env')([ 'AUTH_URL' ]);
 var Driver = require('./index.js')
 var driver = new Driver(process.env.AUTH_URL);
@@ -8,36 +7,48 @@ var bandname = require('bandname');
 
 var rando = () => bandname().replace(/ /g, '_');
 
-var spec = {
-  email: (rando()+'@example.com'),
-  password: rando(),
-  permissions: [{type: rando(), entity: rando()}]
+const genSpec = () => {
+  const email = rando()+'@example.com';
+
+  return {
+    email: email,
+    emails: [email],
+    password: rando(),
+    permissions: [{type: rando(), entity: rando()}]
+  };
 };
 
-spec.emails = [spec.email];
+const run = (name, func) => {
+  test(name, t => {
+    var entity;
+    var token;
 
-var entity;
-var token;
+    const spec = genSpec();
 
-test('create should succeed', t => {
+    return driver.create(spec)
+    .then(res => entity = res)
+    .then(() => driver.signIn(spec.email, spec.password) )
+    .then(res => token = res.token)
+    .then(() => {
+      return func({entity: entity, token: token, spec: spec})(t)
+    })
+  });
+};
+
+run('create should succeed', fixtures => t => {
+  const spec = genSpec();
   return driver.create(spec)
-  .then(res => {
-    entity = res;
-  });
 });
 
-test('signIn should succeed', t => {
-  return driver.signIn(spec.email, spec.password)
-  .then(res => {
-    token = res.token;
-  });
+run('signIn should succeed', fixtures => t => {
+  return driver.signIn(fixtures.spec.email, fixtures.spec.password)
 });
 
-test('validate should succeed', t => {
-  return driver.validate(token);
+run('validate should succeed', fixtures => t => {
+  return driver.validate(fixtures.token);
 });
 
-test('validate should fail an invalid token', t => {
+run('validate should fail an invalid token', fixtures => t => {
   return driver.validate('wut')
   .then(t.fail)
   .catch(() => {
@@ -45,31 +56,31 @@ test('validate should fail an invalid token', t => {
   });
 });
 
-test('findByPerm should succeed', t => {
-  return driver.findByPerm(spec.permissions[0].type, spec.permissions[0].entity)
+run('findByPerm should succeed', fixtures => t => {
+  return driver.findByPerm(fixtures.spec.permissions[0].type, fixtures.spec.permissions[0].entity)
   .then(res => {
     res.forEach(ent => {
-      t.deepEqual(ent.emails, spec.emails)
+      t.deepEqual(ent.emails, fixtures.spec.emails)
     });
   });
 });
 
-test('search should succeed', t => {
-  return driver.search([{key: 'email', value: spec.email}])
+run('search should succeed', fixtures => t => {
+  return driver.search([{key: 'email', value: fixtures.spec.email}])
   .then(res => {
     t.equal(res.length, 1);
-    t.deepEqual(res[0].emails, spec.emails);
+    t.deepEqual(res[0].emails, fixtures.spec.emails);
   });
 });
 
-test('get should succeed', t => {
-  return driver.get(entity.id)
+run('get should succeed', fixtures => t => {
+  return driver.get(fixtures.entity.id)
   .then(res => {
-    t.deepEqual(res.emails, spec.emails);
+    t.deepEqual(res.emails, fixtures.spec.emails);
   });
 });
 
-test('update should succeed', t => {
-  entity.permissions = [{type: 'baz', entity: 'quux'}];
-  return driver.update(entity.id, entity)
+run('update should succeed', fixtures => t => {
+  fixtures.entity.permissions = [{type: 'baz', entity: 'quux'}];
+  return driver.update(fixtures.entity.id, fixtures.entity)
 });
