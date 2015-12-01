@@ -53,7 +53,7 @@ Driver.prototype.search = function(params) {
   var qs = params.map(function(param) {
     return [param.key, param.value].join('=');
   }).join('&');
-  return request.get(_this.AUTH_URL + '/entities?'+ qs);
+  return request.get(this.AUTH_URL + '/entities?'+ qs);
 };
 
 Driver.prototype.getAll = function() {
