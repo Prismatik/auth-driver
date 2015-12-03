@@ -23,8 +23,8 @@ const genSpec = () => {
 
 const run = (name, func) => {
   test(name, t => {
-    var entity;
-    var token;
+    let entity;
+    let token;
 
     const spec = genSpec();
 

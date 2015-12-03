@@ -73,7 +73,7 @@ function configureInterceptors(instance, url, { username, password } = {}) {
   instance.interceptors.request.use(config => {
     config.url = `${url}${config.url}`;
     config.headers = {
-      Authorization: `Basic ${auth}`;
+      Authorization: `Basic ${auth}`
     }
 
     return config;
