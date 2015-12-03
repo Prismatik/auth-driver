@@ -7,7 +7,7 @@ if (typeof window === 'undefined') {
 
 /*
 * Usage:
-* import Driver from 'auth-driver'
+* import Driver from 'auth-driver';
 * const driver = new Driver('https://localhost:3000', {
 *   username: 'username',
 *   password: 'key'
@@ -19,7 +19,7 @@ export default class Driver {
     if (!url)
       throw new Error('Driver must be instantiated with a url');
 
-    this._axios = configureInterceptors(axios.create(), url, opts)
+    this._axios = configureInterceptors(axios.create(), url, opts);
   }
 
   validate(token) {
@@ -35,7 +35,7 @@ export default class Driver {
   }
 
   findByPerm(type, uuid) {
-    return this._axios.get(`/entities?perm.type=${type}&perm.entity=${uuid}`)
+    return this._axios.get(`/entities?perm.type=${type}&perm.entity=${uuid}`);
   }
 
   search(params) {
@@ -68,20 +68,20 @@ export default class Driver {
 }
 
 function configureInterceptors(instance, url, { username, password } = {}) {
-  const auth = btoa(`${username || ''}:${password || ''}`)
+  const auth = btoa(`${username || ''}:${password || ''}`);
 
   instance.interceptors.request.use(config => {
     config.url = `${url}${config.url}`;
     config.headers = {
-      Authorization: `Basic ${auth}`
+      Authorization: `Basic ${auth}`;
     }
 
     return config;
   })
 
   instance.interceptors.response.use(res => {
-    return res.data
-  })
+    return res.data;
+  });
 
   return instance;
 }

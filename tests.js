@@ -34,17 +34,17 @@ const run = (name, func) => {
     .then(res => token = res.token)
     .then(() => {
       return func({entity: entity, token: token, spec: spec})(t)
-    })
+    });
   });
 };
 
 run('create should succeed', fixtures => t => {
   const spec = genSpec();
-  return driver.create(spec)
+  return driver.create(spec);
 });
 
 run('signIn should succeed', fixtures => t => {
-  return driver.signIn(fixtures.spec.email, fixtures.spec.password)
+  return driver.signIn(fixtures.spec.email, fixtures.spec.password);
 });
 
 run('validate should succeed', fixtures => t => {
@@ -63,7 +63,7 @@ run('findByPerm should succeed', fixtures => t => {
   return driver.findByPerm(fixtures.spec.permissions[0].type, fixtures.spec.permissions[0].entity)
   .then(res => {
     res.forEach(ent => {
-      t.deepEqual(ent.emails, fixtures.spec.emails)
+      t.deepEqual(ent.emails, fixtures.spec.emails);
     });
   });
 });
@@ -85,5 +85,5 @@ run('get should succeed', fixtures => t => {
 
 run('update should succeed', fixtures => t => {
   fixtures.entity.permissions = [{type: 'baz', entity: 'quux'}];
-  return driver.update(fixtures.entity.id, fixtures.entity)
+  return driver.update(fixtures.entity.id, fixtures.entity);
 });
