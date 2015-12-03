@@ -7,7 +7,7 @@ import bandname from 'bandname';
 // Set to your auth api key
 const TEST_PASSWORD = 'hai';
 
-const driver = new Driver(process.env.AUTH_URL, { password: 'hai' });
+const driver = new Driver(process.env.AUTH_URL, { password: TEST_PASSWORD });
 
 const rando = () => bandname().replace(/ /g, '_');
 const genSpec = () => {
