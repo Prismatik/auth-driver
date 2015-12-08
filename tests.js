@@ -1,4 +1,3 @@
-//FIXME these tests are full of shared state. They work, but they're liable to do unexpected things if not watched carefully as they change
 require('required_env')([ 'AUTH_URL' ]);
 import Driver from './src';
 import test from 'blue-tape';
