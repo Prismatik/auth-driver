@@ -51,7 +51,7 @@ Driver.prototype.search = function(params) {
   * }]
   */
   var qs = params.map(function(param) {
-    return [param.key, param.value].join('=');
+    return [param.key, encodeURIComponent(param.value)].join('=');
   }).join('&');
   return request.get(this.AUTH_URL + '/entities?'+ qs);
 };
