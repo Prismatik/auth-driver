@@ -29,12 +29,12 @@ Driver.prototype.validate = function(token) {
 
 Driver.prototype.signIn = function(email, password) {
   return axios({
-          url: this.AUTH_URL + '/login',
-          data:{ email: email, password: password },
-          method: 'POST',
-          headers: this.headers
-        })
-        .then(returnBody);
+    url: this.AUTH_URL + '/login',
+    data:{ email: email, password: password },
+    method: 'POST',
+    headers: this.headers
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.create = function(data) {
@@ -42,12 +42,12 @@ Driver.prototype.create = function(data) {
   if (!data.emails && data.email) data.emails = [data.email];
   delete data.email;
   return axios({
-          url: this.AUTH_URL + '/entities',
-          data: data,
-          method: 'POST',
-          headers: this.headers
-        })
-        .then(returnBody);
+    url: this.AUTH_URL + '/entities',
+    data: data,
+    method: 'POST',
+    headers: this.headers
+  })
+  .then(returnBody);
 };
 
 Driver.prototype.findByPerm = function(type, uuid) {
