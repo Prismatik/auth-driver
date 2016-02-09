@@ -6,6 +6,14 @@
   "author": "Larlyn Tanasap",
   "license": "ISC",
   "dependencies": {
-    "request-promise": "git+ssh://git@github.com/Prismatik/request-promise.git"
+    "axios": "^0.7.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "bandname": "^1.0.0",
+    "blue-tape": "^0.1.10",
+    "required_env": "^1.0.0"
   }
 }
