@@ -16,3 +16,7 @@ driver.getAll()
   console.log(entities);
 });
 ```
+
+## Running tests
+
+Set env variables `AUTH_URL` and `AUTH_PASSWORD` for your auth server before running tests.
