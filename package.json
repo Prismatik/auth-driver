@@ -2,10 +2,10 @@
   "name": "auth-driver",
   "version": "2.0.0",
   "description": "A drive to use the auth service",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "npm run compile && babel-node --presets es2015 tests.js | faucet",
-    "compile": "babel --presets es2015 -d lib/ src/",
+    "compile": "babel --presets es2015 -d dist/ src/",
     "prepublish": "npm run compile"
   },
   "author": "Larlyn Tanasap",
