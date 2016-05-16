@@ -20,3 +20,4 @@ driver.getAll()
 ## Running tests
 
 Set env variables `AUTH_URL` and `AUTH_PASSWORD` for your auth server before running tests.
+`AUTH_PASSWORD` should match the `API_KEY` you have defined on your auth server.
