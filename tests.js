@@ -34,7 +34,7 @@ const run = (name, func) => {
   });
 };
 
-run('create should succeed', fixtures => t => {
+test('create should succeed', t => {
   const spec = genSpec();
   return driver.create(spec);
 });
