@@ -8,8 +8,16 @@
     "compile": "babel --presets es2015 -d dist/ src/",
     "prepublish": "npm run compile"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Prismatik/auth-driver.git"
+  },
   "author": "Prismatik <info@prismatik.com.au> (http://blog.prismatik.com.au)",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Prismatik/auth-driver/issues"
+  },
+  "homepage": "https://github.com/Prismatik/auth-driver",
   "dependencies": {
     "axios": "^0.11.0"
   },
