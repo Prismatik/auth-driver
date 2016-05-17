@@ -1,4 +1,4 @@
-# Auth Driver
+# Auth Driver [![Build Status](https://travis-ci.org/Prismatik/auth-driver.svg?branch=master)](https://travis-ci.org/Prismatik/auth-driver)
 
 A driver for [Prismatik auth service](https://github.com/Prismatik/auth).
 
