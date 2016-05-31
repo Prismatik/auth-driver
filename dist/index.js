@@ -42,7 +42,7 @@ var Driver = function () {
 
     if (!url) throw new Error('Driver must be instantiated with a url');
 
-    this._axios = configureInterceptors(_axios2.default.create(), url, opts);
+    this._axios = configureInterceptors(_axios2.default.create(opts), url, opts);
   }
 
   _createClass(Driver, [{

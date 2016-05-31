@@ -20,7 +20,7 @@ export default class Driver {
     if (!url)
       throw new Error('Driver must be instantiated with a url');
 
-    this._axios = configureInterceptors(axios.create(), url, opts);
+    this._axios = configureInterceptors(axios.create(opts), url, opts);
   }
 
   validate(token) {
