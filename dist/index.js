@@ -138,5 +138,5 @@ function configureInterceptors(instance, url) {
 }
 
 function errorify(res) {
-  return new _standardHttpError2.default(res.status, res.statusText, { response: res });
+  return new _standardHttpError2.default(res.status, res.statusText, { response: res.data });
 }
