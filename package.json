@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/Prismatik/auth-driver",
   "dependencies": {
-    "axios": "^0.11.0"
+    "axios": "^0.11.0",
+    "standard-http-error": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",

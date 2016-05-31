@@ -1,4 +1,5 @@
 import axios from 'axios';
+import HttpError from 'standard-http-error';
 
 // Polyfill btoa if on node
 if (typeof window === 'undefined') {
@@ -82,7 +83,16 @@ function configureInterceptors(instance, url, { username, password } = {}) {
 
   instance.interceptors.response.use(res => {
     return res.data;
+  }, err => {
+    if (!(err instanceof Error) && typeof err === "object") {
+      return Promise.reject(errorify(err));
+    }
+    return Promise.reject(err);
   });
 
   return instance;
+}
+
+function errorify(res) {
+  return new HttpError(res.status, res.statusText, {response: res})
 }
