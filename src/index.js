@@ -94,5 +94,8 @@ function configureInterceptors(instance, url, { username, password } = {}) {
 }
 
 function errorify(res) {
-  return new HttpError(res.status, res.statusText, {response: res.data})
+  return new HttpError(res.status, res.statusText, {
+    response: res.data,
+    message: res.data.message
+  })
 }
