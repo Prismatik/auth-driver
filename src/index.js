@@ -81,21 +81,18 @@ function configureInterceptors(instance, url, { username, password } = {}) {
     return config;
   })
 
-  instance.interceptors.response.use(res => {
-    return res.data;
-  }, err => {
-    if (!(err instanceof Error) && typeof err === "object") {
-      return Promise.reject(errorify(err));
-    }
-    return Promise.reject(err);
-  });
+  instance.interceptors.response.use(
+    res => res.data,
+    err => Promise.reject(errorify(err))
+  );
 
   return instance;
 }
 
-function errorify(res) {
-  return new HttpError(res.status, res.statusText, {
-    response: res.data,
-    message: res.data.message
+function errorify(err) {
+  if (typeof err !== 'object') return new HttpError(500);
+  return new HttpError(err.status, err.statusText, {
+    response: err.data,
+    message: err.data.message
   })
 }

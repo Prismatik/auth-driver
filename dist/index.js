@@ -128,18 +128,16 @@ function configureInterceptors(instance, url) {
   instance.interceptors.response.use(function (res) {
     return res.data;
   }, function (err) {
-    if (!(err instanceof Error) && (typeof err === 'undefined' ? 'undefined' : _typeof(err)) === "object") {
-      return Promise.reject(errorify(err));
-    }
-    return Promise.reject(err);
+    return Promise.reject(errorify(err));
   });
 
   return instance;
 }
 
-function errorify(res) {
-  return new _standardHttpError2.default(res.status, res.statusText, {
-    response: res.data,
-    message: res.data.message
+function errorify(err) {
+  if ((typeof err === 'undefined' ? 'undefined' : _typeof(err)) !== 'object') return new _standardHttpError2.default(500);
+  return new _standardHttpError2.default(err.status, err.statusText, {
+    response: err.data,
+    message: err.data.message
   });
 }
