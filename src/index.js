@@ -1,4 +1,5 @@
 import axios from 'axios';
+import HttpError from 'standard-http-error';
 
 // Polyfill btoa if on node
 if (typeof window === 'undefined') {
@@ -19,7 +20,7 @@ export default class Driver {
     if (!url)
       throw new Error('Driver must be instantiated with a url');
 
-    this._axios = configureInterceptors(axios.create(), url, opts);
+    this._axios = configureInterceptors(axios.create(opts), url, opts);
   }
 
   validate(token) {
@@ -80,9 +81,18 @@ function configureInterceptors(instance, url, { username, password } = {}) {
     return config;
   })
 
-  instance.interceptors.response.use(res => {
-    return res.data;
-  });
+  instance.interceptors.response.use(
+    res => res.data,
+    err => Promise.reject(errorify(err))
+  );
 
   return instance;
+}
+
+function errorify(err) {
+  if (typeof err !== 'object') return new HttpError(500);
+  return new HttpError(err.status, err.statusText, {
+    response: err.data,
+    message: err.data.message
+  })
 }
