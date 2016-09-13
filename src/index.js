@@ -91,6 +91,7 @@ function configureInterceptors(instance, url, { username, password } = {}) {
 
 function errorify(err) {
   if (typeof err !== 'object') return new HttpError(500);
+  if (!err.data.message) err.data.message = 'undefined error';
   return new HttpError(err.status, err.statusText, {
     response: err.data,
     message: err.data.message
