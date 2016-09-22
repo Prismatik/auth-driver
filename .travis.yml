@@ -1,4 +1,15 @@
-sudo: false
+sudo: required
 language: node_js
+services:
+  - docker
+before_install:
+  - docker pull rethinkdb
+  - docker pull prismatik/auth
+  - docker run -d rethinkdb
+  - docker run -d -p 3010:3010 prismatik/auth -e JWT_SECRET=foo -e RETHINK_HOST=rethinkdb -e RETHINK_PORT=28015 -e RETHINK_NAME=test -e API_KEY=lolapikey -e PORT=3010 -e JWT_INCLUSIONS=id,email
+
+env:
+  AUTH_URL: 127.0.0.1:3010
+  AUTH_PASSWORD: lolapikey
 node_js:
 - stable

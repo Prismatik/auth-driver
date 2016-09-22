@@ -136,6 +136,8 @@ function configureInterceptors(instance, url) {
 
 function errorify(err) {
   if ((typeof err === 'undefined' ? 'undefined' : _typeof(err)) !== 'object') return new _standardHttpError2.default(500);
+  if (!err.data) err.data = err;
+  if (!err.data.mesage) err.data.message = err.data;
   return new _standardHttpError2.default(err.status, err.statusText, {
     response: err.data,
     message: err.data.message
